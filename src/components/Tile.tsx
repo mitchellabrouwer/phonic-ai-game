@@ -1,17 +1,30 @@
 import tiles from "../lib/tiles";
-import { TileName } from "../types/types";
+import { TileInfo } from "../types/types";
 
 interface TileProps {
-  type: TileName;
+  tile: TileInfo;
 }
 
-function Tile({ type }: TileProps) {
-  const imageUrl = tiles[type];
+function Tile({ tile }: TileProps) {
+  const imageUrl = tiles[tile.name];
+  const widthSpan = `span ${tile.width || 1}`;
+  const heightSpan = `span ${tile.height || 1}`;
+
   return (
     <div
-      style={{ backgroundImage: `url(${imageUrl})` }}
-      className="w-24 h-24 bg-cover bg-center"
-    />
+      className="w-12 h-12"
+      style={{
+        backgroundImage: `url(${imageUrl})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        gridColumnEnd: widthSpan,
+        gridRowEnd: heightSpan,
+        border: "1px solid",
+      }}
+    >
+      t
+    </div>
   );
 }
 
