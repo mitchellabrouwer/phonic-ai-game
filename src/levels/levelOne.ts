@@ -1,4 +1,4 @@
-import { Tile, TileName } from "../../types/types";
+import { Tile, TileName } from "../types/types";
 
 const fillerRow: Tile[] = [
   ...new Array(5).fill({ image: "straight", rotate: 90 }),
@@ -25,12 +25,7 @@ const attractions = (placeholders: AttractionProps[]): Tile[] => {
     ],
   );
 
-  return [
-    ...attractionsRow,
-    { image: "straight", rotate: 90 },
-    ...fillerRow,
-    ...fillerRow,
-  ];
+  return [...attractionsRow, { image: "straight", rotate: 90 }];
 };
 
 const divider: Tile[] = [
@@ -46,7 +41,8 @@ const divider: Tile[] = [
 ];
 
 const levelOne: Tile[][] = [
-  // 4x3 grid
+  // 3x4 grid attractions, 13x17 squares
+  // 2x4 grid
   divider,
   attractions([
     { letter: "s", character: "sammy", image: "amy_orchard_1" },
@@ -54,6 +50,8 @@ const levelOne: Tile[][] = [
     { letter: "i", character: "izzy", image: "soil" },
     { letter: "n", character: "nelly", image: "soil" },
   ]),
+  fillerRow,
+  fillerRow,
   divider,
   attractions([
     { letter: "s", character: "sammy", image: "soil" },
@@ -61,13 +59,8 @@ const levelOne: Tile[][] = [
     { letter: "i", character: "izzy", image: "soil" },
     { letter: "n", character: "nelly", image: "soil" },
   ]),
-  divider,
-  attractions([
-    { letter: "s", character: "sammy", image: "soil" },
-    { letter: "t", character: "toby", image: "soil" },
-    { letter: "i", character: "izzy", image: "soil" },
-    { letter: "n", character: "nelly", image: "soil" },
-  ]),
+  fillerRow,
+  fillerRow,
   divider,
 ];
 
