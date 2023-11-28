@@ -1,77 +1,38 @@
 "use client";
 
-import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 import { v4 as uuidv4 } from "uuid";
-import useOrientation from "../hooks/useOrientation";
-import tiles from "../lib/tiles";
 import { Tile } from "../types/types";
-import transposeTiles from "../utils/transpose";
+import Square from "./Square";
 
 interface GridProps {
   map: Tile[][];
   setMap: Dispatch<SetStateAction<Tile[][]>>;
   level: number;
   setLevel: Dispatch<SetStateAction<number>>;
+  isLandscape: boolean;
 }
 
-function Grid({ map, setMap, level, setLevel }: GridProps) {
-  const isLandscape = useOrientation();
+function Grid({ map, setMap, level, setLevel, isLandscape }: GridProps) {
+  const rows = map.length;
+  const columns = map[0].length;
+  const minWidth = Math.floor(100 / columns);
 
-  console.log(map);
-  console.log(transposeTiles(map));
+  if (map.length === 0) {
+    return null;
+  }
 
   return (
     <div
       className="grid rounded-lg"
-      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+      style={{
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+      }}
     >
       {map.map((row) =>
-        row.map((tile) => {
-          const imageUrl = tiles[tile.image];
-          const widthSpan = `span ${tile.width || 1}`;
-          const heightSpan = `span ${tile.height || 1}`;
-          const rotate = String(tile.rotate) || "0";
-          const isButton = tile.button;
-
-          const minWidth = Math.floor(100 / columns);
-
-          const renderedTile = !isButton ? (
-            <div
-              key={uuidv4()}
-              // className="min-w-[4vw] min-h-[4vw]"
-              style={{
-                backgroundImage: `url(${imageUrl})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                gridColumnEnd: widthSpan,
-                gridRowEnd: heightSpan,
-                transform: `rotate(${rotate}deg)`,
-
-                minWidth: `${minWidth}vw`,
-                minHeight: `${minWidth}vw`,
-              }}
-            />
-          ) : (
-            <Link
-              href={`/${tile.letter}`}
-              key={uuidv4()}
-              // className="min-w-[4vw] min-h-[4vw] md:min-w-[5vw] md:min-h-[5vw]"
-              style={{
-                backgroundImage: `url(${imageUrl})`,
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                gridColumnEnd: widthSpan,
-                gridRowEnd: heightSpan,
-                transform: `rotate(${rotate}deg)`,
-              }}
-            />
-          );
-
-          return renderedTile;
-        }),
+        row.map((square) => (
+          <Square key={uuidv4()} square={square} minWidth={minWidth} />
+        )),
       )}
     </div>
   );

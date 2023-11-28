@@ -11,3 +11,9 @@ export type Tile = {
   character?: string;
   button?: boolean;
 };
+
+export interface AttractionProps {
+  image: TileName;
+  letter: string;
+  character: string;
+}

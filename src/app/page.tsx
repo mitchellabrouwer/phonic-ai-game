@@ -3,18 +3,22 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Grid from "../components/Grid";
-import levelOne from "../levels/levelOne";
+import useOrientation from "../hooks/useOrientation";
+import { levelOneLand, levelOnePort } from "../levels/levelOne";
 import { Tile } from "../types/types";
 
 export default function Home() {
   const [level, setLevel] = useState(1);
+  const isLandscape = useOrientation();
+
+  // check local storage
   const [map, setMap] = useState<Tile[][]>([]);
 
   useEffect(() => {
     if (level === 1) {
-      setMap(levelOne);
+      setMap(isLandscape ? levelOneLand() : levelOnePort());
     }
-  }, [level]);
+  }, [isLandscape, level]);
 
   return (
     <main className="flex justify-center">
@@ -30,7 +34,13 @@ export default function Home() {
       </div>
       {/* <SimpleGrid /> */}
       {map.length > 0 && (
-        <Grid map={map} setMap={setMap} level={level} setLevel={setLevel} />
+        <Grid
+          map={map}
+          setMap={setMap}
+          level={level}
+          setLevel={setLevel}
+          isLandscape={isLandscape}
+        />
       )}
     </main>
   );
