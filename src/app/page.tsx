@@ -12,13 +12,16 @@ export default function Home() {
   const isLandscape = useOrientation();
 
   // check local storage
-  const [map, setMap] = useState<Tile[][]>([]);
+  const [grid, setGrid] = useState<Tile[][]>([]);
+  // console.log(levelOnePort());
 
   useEffect(() => {
     if (level === 1) {
-      setMap(isLandscape ? levelOneLand() : levelOnePort());
+      setGrid(isLandscape ? levelOneLand() : levelOnePort());
     }
   }, [isLandscape, level]);
+
+  // console.log(grid);
 
   return (
     <main className="flex justify-center">
@@ -33,10 +36,10 @@ export default function Home() {
         />
       </div>
       {/* <SimpleGrid /> */}
-      {map.length > 0 && (
+      {grid.length > 0 && (
         <Grid
-          map={map}
-          setMap={setMap}
+          grid={grid}
+          setGrid={setGrid}
           level={level}
           setLevel={setLevel}
           isLandscape={isLandscape}

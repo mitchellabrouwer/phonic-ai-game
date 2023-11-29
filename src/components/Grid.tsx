@@ -6,19 +6,19 @@ import { Tile } from "../types/types";
 import Square from "./Square";
 
 interface GridProps {
-  map: Tile[][];
-  setMap: Dispatch<SetStateAction<Tile[][]>>;
+  grid: Tile[][];
+  setGrid: Dispatch<SetStateAction<Tile[][]>>;
   level: number;
   setLevel: Dispatch<SetStateAction<number>>;
   isLandscape: boolean;
 }
 
-function Grid({ map, setMap, level, setLevel, isLandscape }: GridProps) {
-  const rows = map.length;
-  const columns = map[0].length;
+function Grid({ grid, setGrid, level, setLevel, isLandscape }: GridProps) {
+  const rows = grid.length;
+  const columns = grid[0].length;
   const minWidth = Math.floor(100 / columns);
 
-  if (map.length === 0) {
+  if (grid.length === 0) {
     return null;
   }
 
@@ -29,7 +29,7 @@ function Grid({ map, setMap, level, setLevel, isLandscape }: GridProps) {
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
       }}
     >
-      {map.map((row) =>
+      {grid.map((row) =>
         row.map((square) => (
           <Square key={uuidv4()} square={square} minWidth={minWidth} />
         )),
