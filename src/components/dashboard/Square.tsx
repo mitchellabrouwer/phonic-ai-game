@@ -1,19 +1,29 @@
 import Link from "next/link";
-import tiles from "../lib/tiles";
-import { Tile } from "../types/types";
+import { GAME_SPACE_PERCENT } from "../../lib/constants";
+import tiles from "../../lib/tiles";
+import { Tile } from "../../types/types";
 
 interface TileProps {
   square: Tile;
-  minWidth: number;
+  dimensions: [number, number];
+  isLandscape: boolean | null;
 }
 
-function Square({ square, minWidth }: TileProps) {
+function Square({ square, dimensions, isLandscape }: TileProps) {
+  const [rows, columns] = dimensions;
+
   const imageUrl = tiles[square.image];
   const rotate = String(square.rotate) || "0";
+
   const widthSpan = `span ${square.width || 1}`;
   const heightSpan = `span ${square.height || 1}`;
 
+  const landscapeMinWidth = Math.floor(GAME_SPACE_PERCENT / rows);
+  const portraitMinWidth = Math.floor(GAME_SPACE_PERCENT / columns);
+
   const isButton = square.button;
+
+  const size = isLandscape ? `${landscapeMinWidth}vh` : `${portraitMinWidth}vw`;
 
   if (!isButton) {
     return (
@@ -26,8 +36,8 @@ function Square({ square, minWidth }: TileProps) {
           gridColumnEnd: widthSpan,
           gridRowEnd: heightSpan,
           transform: `rotate(${rotate}deg)`,
-          minWidth: `${minWidth}vw`,
-          minHeight: `${minWidth}vw`,
+          minWidth: size,
+          minHeight: size,
         }}
       />
     );

@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Tile } from "../types/types";
+import { Tile } from "../../types/types";
 import Square from "./Square";
 
 interface GridProps {
@@ -10,13 +10,12 @@ interface GridProps {
   setGrid: Dispatch<SetStateAction<Tile[][]>>;
   level: number;
   setLevel: Dispatch<SetStateAction<number>>;
-  isLandscape: boolean;
+  isLandscape: boolean | null;
 }
 
 function Grid({ grid, setGrid, level, setLevel, isLandscape }: GridProps) {
   const rows = grid.length;
   const columns = grid[0].length;
-  const minWidth = Math.floor(100 / columns);
 
   if (grid.length === 0) {
     return null;
@@ -31,7 +30,12 @@ function Grid({ grid, setGrid, level, setLevel, isLandscape }: GridProps) {
     >
       {grid.map((row) =>
         row.map((square) => (
-          <Square key={uuidv4()} square={square} minWidth={minWidth} />
+          <Square
+            key={uuidv4()}
+            square={square}
+            dimensions={[rows, columns]}
+            isLandscape={isLandscape}
+          />
         )),
       )}
     </div>
