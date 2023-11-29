@@ -5,7 +5,7 @@ import { OrientationProvider } from "../context/OrientationProvider";
 
 export default function Home() {
   return (
-    <main className="flex justify-center">
+    <main className="flex justify-center mt-2">
       <OrientationProvider>
         <Dashboard />
       </OrientationProvider>

@@ -30,14 +30,15 @@ const buildAttractions = (placeholders: typeof ATTRACTIONS): Tile[] => {
 };
 
 const buildDivider = (totalWidth: number): Tile[] => {
-  console.log(totalWidth);
+  const tiles: Tile[] = [];
+  while (tiles.length < totalWidth) {
+    tiles.push({ image: "intersection" });
 
-  const innerWidth = totalWidth - 2;
-  console.log(innerWidth);
+    for (let i = 0; i < ATTRACTION_SIZE && tiles.length < totalWidth; i += 1) {
+      tiles.push({ image: "straight" });
+    }
+  }
 
-  const tiles: Tile[] = [{ image: "intersection" }];
-  tiles.push(...new Array(innerWidth).fill({ image: "straight" }));
-  tiles.push({ image: "intersection" });
   return tiles;
 };
 

@@ -21,6 +21,8 @@ export default function Dashboard() {
     // TODO: add other levels here
   }, [level, orientation]);
 
+  console.log(grid);
+
   return (
     <main className="flex justify-center">
       <div className="max-w-sm relative z-20">
