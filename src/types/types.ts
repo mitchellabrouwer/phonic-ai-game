@@ -1,5 +1,7 @@
 import tiles from "../lib/tiles";
 
+export type Orientation = "landscape" | "portrait";
+
 export type TileName = keyof typeof tiles;
 
 export type Tile = {

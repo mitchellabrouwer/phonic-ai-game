@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useOrientation } from "../../context/OrientationProvider";
 import { GAME_SPACE_PERCENT } from "../../lib/constants";
 import tiles from "../../lib/tiles";
 import { Tile } from "../../types/types";
@@ -6,55 +7,39 @@ import { Tile } from "../../types/types";
 interface TileProps {
   square: Tile;
   dimensions: [number, number];
-  isLandscape: boolean | null;
 }
 
-function Square({ square, dimensions, isLandscape }: TileProps) {
+function Square({ square, dimensions }: TileProps) {
+  const orientation = useOrientation();
   const [rows, columns] = dimensions;
-
   const imageUrl = tiles[square.image];
-  const rotate = String(square.rotate) || "0";
+  const rotationDegrees = String(square.rotate) ?? "0";
+  const gridColumnSpan = `span ${square.width ?? 1}`;
+  const gridRowSpan = `span ${square.height ?? 1}`;
 
-  const widthSpan = `span ${square.width || 1}`;
-  const heightSpan = `span ${square.height || 1}`;
+  const minSize = (divisor: number) =>
+    `${Math.floor(GAME_SPACE_PERCENT / divisor)}${
+      orientation === "landscape" ? "vh" : "vw"
+    }`;
 
-  const landscapeMinWidth = Math.floor(GAME_SPACE_PERCENT / rows);
-  const portraitMinWidth = Math.floor(GAME_SPACE_PERCENT / columns);
+  const size = orientation === "landscape" ? minSize(rows) : minSize(columns);
 
-  const isButton = square.button;
+  const styles = {
+    backgroundImage: `url(${imageUrl})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    gridColumnEnd: gridColumnSpan,
+    gridRowEnd: gridRowSpan,
+    transform: `rotate(${rotationDegrees}deg)`,
+    minWidth: size,
+    minHeight: size,
+  };
 
-  const size = isLandscape ? `${landscapeMinWidth}vh` : `${portraitMinWidth}vw`;
-
-  if (!isButton) {
-    return (
-      <div
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          gridColumnEnd: widthSpan,
-          gridRowEnd: heightSpan,
-          transform: `rotate(${rotate}deg)`,
-          minWidth: size,
-          minHeight: size,
-        }}
-      />
-    );
-  }
-  return (
-    <Link
-      href={`/${square.letter}`}
-      style={{
-        backgroundImage: `url(${imageUrl})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        gridColumnEnd: widthSpan,
-        gridRowEnd: heightSpan,
-        transform: `rotate(${rotate}deg)`,
-      }}
-    />
+  return square.button ? (
+    <Link href={`/${square.letter}`} style={styles} />
+  ) : (
+    <div style={styles} />
   );
 }
 

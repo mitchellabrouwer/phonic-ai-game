@@ -10,10 +10,9 @@ interface GridProps {
   setGrid: Dispatch<SetStateAction<Tile[][]>>;
   level: number;
   setLevel: Dispatch<SetStateAction<number>>;
-  isLandscape: boolean | null;
 }
 
-function Grid({ grid, setGrid, level, setLevel, isLandscape }: GridProps) {
+function Grid({ grid, setGrid, level, setLevel }: GridProps) {
   const rows = grid.length;
   const columns = grid[0].length;
 
@@ -30,12 +29,7 @@ function Grid({ grid, setGrid, level, setLevel, isLandscape }: GridProps) {
     >
       {grid.map((row) =>
         row.map((square) => (
-          <Square
-            key={uuidv4()}
-            square={square}
-            dimensions={[rows, columns]}
-            isLandscape={isLandscape}
-          />
+          <Square key={uuidv4()} square={square} dimensions={[rows, columns]} />
         )),
       )}
     </div>

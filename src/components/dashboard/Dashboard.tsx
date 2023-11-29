@@ -2,24 +2,24 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import useOrientation from "../../hooks/useOrientation";
+import { useOrientation } from "../../context/OrientationProvider";
 import { levelOneLand, levelOnePort } from "../../levels/levelOne";
 import { Tile } from "../../types/types";
 import Grid from "./Grid";
 
 export default function Dashboard() {
   const [level, setLevel] = useState(1);
-  const isLandscape = useOrientation();
+  const orientation = useOrientation();
 
   // TODO: check local storage
   const [grid, setGrid] = useState<Tile[][]>([]);
 
   useEffect(() => {
     if (level === 1) {
-      setGrid(isLandscape ? levelOneLand() : levelOnePort());
+      setGrid(orientation === "landscape" ? levelOneLand() : levelOnePort());
     }
     // TODO: add other levels here
-  }, [isLandscape, level]);
+  }, [level, orientation]);
 
   return (
     <main className="flex justify-center">
@@ -35,13 +35,7 @@ export default function Dashboard() {
       </div>
       {/* <SimpleGrid /> */}
       {grid.length > 0 && (
-        <Grid
-          grid={grid}
-          setGrid={setGrid}
-          level={level}
-          setLevel={setLevel}
-          isLandscape={isLandscape}
-        />
+        <Grid grid={grid} setGrid={setGrid} level={level} setLevel={setLevel} />
       )}
     </main>
   );
