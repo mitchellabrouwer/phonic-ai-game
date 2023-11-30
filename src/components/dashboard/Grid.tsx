@@ -22,7 +22,7 @@ function Grid({ grid, setGrid, level, setLevel }: GridProps) {
 
   return (
     <div
-      className="grid rounded-lg"
+      className="grid rounded-full"
       style={{
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
       }}

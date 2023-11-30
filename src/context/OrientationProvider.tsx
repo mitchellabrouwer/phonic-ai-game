@@ -16,6 +16,9 @@ interface OrientationProviderProps {
   children: ReactNode;
 }
 
+const checkOrientation = () =>
+  window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+
 export function OrientationProvider({ children }: OrientationProviderProps) {
   const [orientation, setOrientation] = useState<Orientation | null>(null);
 
@@ -23,9 +26,6 @@ export function OrientationProvider({ children }: OrientationProviderProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const checkOrientation = () =>
-        window.innerWidth > window.innerHeight ? "landscape" : "portrait";
-
       const handleResize = () => {
         setOrientation(checkOrientation());
       };
