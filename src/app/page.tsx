@@ -6,7 +6,7 @@ import { OrientationProvider } from "../context/OrientationProvider";
 
 export default function Home() {
   return (
-    <main className="relative mt-2 flex min-h-screen items-center justify-center pb-[100px]">
+    <main className="relative mt-2 flex h-full min-h-screen items-center justify-center overflow-hidden pb-[100px]">
       <OrientationProvider>
         <Dashboard />
         <Navbar />
