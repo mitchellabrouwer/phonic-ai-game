@@ -1,61 +1,70 @@
-import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
+import { useState } from "react";
+import {
+  AiOutlineArrowDown,
+  AiOutlineArrowUp,
+  AiOutlineHome,
+  AiOutlineSetting,
+} from "react-icons/ai";
 import { IoSpeedometerOutline } from "react-icons/io5";
-import { PiBackpack } from "react-icons/pi";
-import { useOrientation } from "../../context/OrientationProvider";
+import { PiBackpack } from "react-icons/pi"; // Make sure this import is correct
 
 function Navbar() {
-  const orientation = useOrientation();
+  const [isExpanded, setIsExpanded] = useState(false);
   const iconSize = "60";
 
+  const toggleMenu = () => setIsExpanded(!isExpanded);
+
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
-      {orientation === "portrait" ? (
-        <div className="fixed bottom-0 left-0 right-0 z-10 bg-pink-600 p-3">
-          <div className="flex flex-row items-start justify-between">
-            <button type="button" aria-label="Home" className="text-4xl">
-              <AiOutlineHome size={iconSize} />
-            </button>
-
-            <button type="button" aria-label="Progress" className="mb-2">
-              <IoSpeedometerOutline size={iconSize} />
-            </button>
-
-            {/* Backpack Icon */}
-            <button type="button" aria-label="Inventory" className="mb-2">
-              <PiBackpack size={iconSize} />
-            </button>
-
-            <button type="button" aria-label="Settings" className="text-4xl">
-              <AiOutlineSetting size={iconSize} />
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="fixed bottom-0 left-0 right-0 z-10 h-full p-2">
-          <div className="flex h-full flex-row items-center justify-between">
-            <div className="flex h-full flex-col justify-between p-10 pt-10">
+    <div className="fixed left-0 right-0 top-0 z-10">
+      <div
+        className={`bg-pink-600 p-3 transition-all duration-300 ease-in-out ${
+          isExpanded ? "h-auto" : "h-20"
+        }`}
+      >
+        <div
+          className={`flex flex-col items-center justify-between ${
+            isExpanded ? "space-y-4" : "space-y-0"
+          }`}
+        >
+          {isExpanded && (
+            <div className="flex items-center justify-between">
               <button type="button" aria-label="Home" className="text-4xl">
                 <AiOutlineHome size={iconSize} />
+                <span className="text-sm">Home</span>
               </button>
 
-              <button type="button" aria-label="Progress" className="mb-2">
+              <button type="button" aria-label="Progress" className="text-4xl">
                 <IoSpeedometerOutline size={iconSize} />
+                <span className="text-sm">Progress</span>
               </button>
-            </div>
 
-            <div className="flex h-full flex-col justify-between p-10 pt-10">
-              <button type="button" aria-label="Inventory" className="mb-2">
+              <button type="button" aria-label="Inventory" className="text-4xl">
                 <PiBackpack size={iconSize} />
+                <span className="text-sm">Inventory</span>
               </button>
+
               <button type="button" aria-label="Settings" className="text-4xl">
                 <AiOutlineSetting size={iconSize} />
+                <span className="text-sm">Settings</span>
               </button>
             </div>
-          </div>
+          )}
+
+          <button
+            type="button"
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+            className="p-2 text-4xl"
+          >
+            {isExpanded ? (
+              <AiOutlineArrowUp size={40} />
+            ) : (
+              <AiOutlineArrowDown size={40} />
+            )}
+          </button>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 }
 
