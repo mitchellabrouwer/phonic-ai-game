@@ -11,5 +11,6 @@ export type Tile = {
   height?: number;
   letter?: string;
   character?: string;
+  bg?: string;
   button?: boolean;
 };

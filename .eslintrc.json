@@ -5,6 +5,7 @@
     "next/core-web-vitals",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react-redux/recommended",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -16,13 +17,36 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "react", "prettier", "jsx-a11y"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "prettier",
+    "react-redux",
+    "jsx-a11y"
+  ],
   "rules": {
-    "prettier/prettier": ["error"],
+    "prettier/prettier": [
+      "error"
+    ],
     "consistent-return": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "no-nested-ternary": "off",
     "react/require-default-props": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.slice.ts"
+      ],
+      "rules": {
+        "no-param-reassign": [
+          "error",
+          {
+            "props": false
+          }
+        ]
+      }
+    }
+  ]
 }
