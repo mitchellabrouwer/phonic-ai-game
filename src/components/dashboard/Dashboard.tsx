@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import Navbar from "../navigation/Navbar";
-import LevelGrid from "./LandGrid";
+import LandGrid from "./LandGrid";
 
 export default function Dashboard() {
   const [land, setLand] = useState("1");
 
   return (
-    <div className="">
+    <div className="flex h-full flex-col">
       <Navbar />
-      <LevelGrid land={land} setLand={setLand} />
+      <div className="flex flex-grow items-center justify-center">
+        <LandGrid land={land} setLand={setLand} />
+      </div>
     </div>
   );
 }

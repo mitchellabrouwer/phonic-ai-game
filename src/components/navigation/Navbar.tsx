@@ -4,16 +4,25 @@ import { IoSpeedometerOutline } from "react-icons/io5";
 import { PiBackpack } from "react-icons/pi";
 
 function Navbar() {
-  const iconSize = "60";
+  const iconSize = "70";
 
   return (
-    <div className="bg-pink-600">
+    <div className="bg-blue-600 shadow-lg">
+      {" "}
       <div className="flex flex-row items-center justify-between p-2">
-        <button type="button" aria-label="Home" className="text-4xl md:ml-10">
+        <button
+          type="button"
+          aria-label="Home"
+          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500 md:ml-10"
+        >
           <AiOutlineHome size={iconSize} />
         </button>
 
-        <button type="button" aria-label="Progress" className="text-4xl">
+        <button
+          type="button"
+          aria-label="Progress"
+          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+        >
           <IoSpeedometerOutline size={iconSize} />
         </button>
 
@@ -26,14 +35,18 @@ function Navbar() {
           />
         </div>
 
-        <button type="button" aria-label="Inventory" className="text-4xl">
+        <button
+          type="button"
+          aria-label="Inventory"
+          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+        >
           <PiBackpack size={iconSize} />
         </button>
 
         <button
           type="button"
           aria-label="Settings"
-          className="text-4xl md:mr-10"
+          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500 md:mr-10"
         >
           <AiOutlineSetting size={iconSize} />
         </button>
