@@ -1,6 +1,6 @@
-import { AttractionProps } from "../types/types";
+import { Tile } from "../types/types";
 
-const levels: { [key: string]: AttractionProps[] } = {
+const levels: { [key: string]: Tile[] } = {
   "1": [
     { letter: "s", character: "sammy", image: "soil" },
     { letter: "a", character: "amy", image: "soil" },

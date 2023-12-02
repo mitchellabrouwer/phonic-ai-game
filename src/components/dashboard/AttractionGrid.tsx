@@ -1,20 +1,22 @@
 import { Dispatch, SetStateAction } from "react";
+import { v4 as uuidv4 } from "uuid";
 import buildAttraction from "../../levels/attractionBuilder";
 import { Tile } from "../../types/types";
 import Square from "./Square";
 
 interface AttractionGridProps {
-  level: string;
-  setLevel: Dispatch<SetStateAction<string>>;
+  land: string;
+  setLand: Dispatch<SetStateAction<string>>;
   attraction: Tile;
 }
 
-function AttractionGrid({ level, setLevel, attraction }: AttractionGridProps) {
+function AttractionGrid({ land, setLand, attraction }: AttractionGridProps) {
   const grid = buildAttraction(attraction);
+
   return (
     <div className="grid grid-cols-5">
-      {grid.map((item, index) => (
-        <Square key={index} square={item} />
+      {grid.map((item) => (
+        <Square key={uuidv4()} square={item} />
       ))}
     </div>
   );
