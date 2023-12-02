@@ -26,8 +26,10 @@ function Square({ square }: TileProps) {
     <Link
       href={`/${square.letter}`}
       style={commonStyles}
-      className="min-h-[10vw] min-w-[10vw] md:min-h-[6.5vw] md:min-w-[6.5vw] lg:min-h-[5vw] lg:min-w-[5vw]"
-    />
+      className="flex min-h-[10vw] min-w-[10vw] items-center justify-center md:min-h-[6.5vw] md:min-w-[6.5vw] lg:min-h-[5vw] lg:min-w-[5vw]"
+    >
+      <span className="text-9xl">{square.letter}</span>
+    </Link>
   ) : (
     <div
       style={commonStyles}
