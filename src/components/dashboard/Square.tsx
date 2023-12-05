@@ -66,7 +66,7 @@ function Square({ square }: TileProps) {
   if (isCurrentLetter) {
     return (
       <Link
-        href={`/${square.letter}`}
+        href={`letters/${square.letter}`}
         className="shadow-pulse relative flex min-h-[10vw] min-w-[10vw] animate-pulse items-center justify-center rounded border-8 border-transparent transition-all duration-300 hover:shadow-lg md:min-h-[6.5vw] md:min-w-[6.5vw] lg:min-h-[5vw] lg:min-w-[5vw]"
         style={commonStyles}
       >

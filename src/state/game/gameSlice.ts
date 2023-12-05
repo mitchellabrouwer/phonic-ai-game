@@ -8,6 +8,9 @@ interface GameState {
   land: number;
   letter: number;
   completedLetters: string[];
+  activity: number;
+  completedActivities: number[][];
+
   completionTimes: number[];
   lastCompletedLetterAt: number;
   finishingTimes: number[];
@@ -21,6 +24,8 @@ const initialGameState: GameState = {
   difficulty: "easy",
   land: 0,
   letter: 0,
+  activity: 0,
+  completedActivities: [],
   completedLetters: [],
   completionTimes: [],
   lastCompletedLetterAt: new Date().getTime(),
