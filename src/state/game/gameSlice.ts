@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import levels from "../../levels/levels";
-import { RootState } from "../store";
 
 interface GameState {
   lives: number;
@@ -80,11 +79,6 @@ const gameSlice = createSlice({
   },
 });
 
-export const getLetterIndex = (state: RootState) => state.game.letter;
-export const getLandIndex = (state: RootState) => state.game.land;
-export const getCompletedLetters = (state: RootState) =>
-  state.game.completedLetters;
-
 export const {
   incrementLives,
   decrementLives,
@@ -99,4 +93,4 @@ export const {
   updateAmountCorrect,
 } = gameSlice.actions;
 
-export default gameSlice.reducer;
+export const gameReducer = gameSlice.reducer;
