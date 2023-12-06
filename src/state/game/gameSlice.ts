@@ -1,15 +1,17 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import miniGames from "../../levels/games";
 import levels from "../../levels/levels";
 
 interface GameState {
   lives: number;
   difficulty: "easy" | "medium" | "hard";
+
   land: number;
   letter: number;
+  miniGame: number;
   completedLetters: string[];
-  activity: number;
-  completedActivities: number[][];
+  completedMiniGames: number[];
 
   completionTimes: number[];
   lastCompletedLetterAt: number;
@@ -24,8 +26,8 @@ const initialGameState: GameState = {
   difficulty: "easy",
   land: 0,
   letter: 0,
-  activity: 0,
-  completedActivities: [],
+  miniGame: 0,
+  completedMiniGames: [],
   completedLetters: [],
   completionTimes: [],
   lastCompletedLetterAt: new Date().getTime(),
@@ -42,42 +44,49 @@ const gameSlice = createSlice({
     incrementLives: (state) => {
       state.lives += 1;
     },
+
     decrementLives: (state) => {
       if (state.lives > 0) state.lives -= 1;
     },
+
     changeDifficulty: (
       state,
       action: PayloadAction<"easy" | "medium" | "hard">,
     ) => {
       state.difficulty = action.payload;
     },
-    incrementLand: (state) => {
-      state.land += 1;
-    },
-    decrementLand: (state) => {
-      if (state.land > 1) state.land -= 1;
-    },
-    incrementLetter: (state) => {
-      const currentLevel = levels[state.land];
-      if (state.letter < currentLevel.length - 1) {
-        state.letter += 1;
+
+    incrementMiniGame: (state) => {
+      const currentLetterGames = miniGames[state.letter];
+      if (state.miniGame < currentLetterGames.length - 1) {
+        state.miniGame += 1;
       } else {
-        state.land += 1;
-        state.letter = 0;
+        const currentLevel = levels[state.land];
+        if (state.letter < currentLevel.length - 1) {
+          // Move to the next letter
+          state.letter += 1;
+          state.miniGame = 0;
+        } else {
+          // Move to the next land and reset letter and miniGame
+          state.land += 1;
+          state.letter = 0;
+          state.miniGame = 0;
+        }
       }
     },
-    decrementLetter: (state) => {
-      state.letter += 1;
-    },
+
     addAchievedLetter: (state, action: PayloadAction<string>) => {
       state.completedLetters.push(action.payload);
     },
+
     addCompletionTime: (state, action: PayloadAction<number>) => {
       state.completionTimes.push(action.payload);
     },
+
     addFinishingTime: (state, action: PayloadAction<number>) => {
       state.finishingTimes.push(action.payload);
     },
+
     updateAmountCorrect: (state, action: PayloadAction<number>) => {
       state.amountCorrect = action.payload;
     },
