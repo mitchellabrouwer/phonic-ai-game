@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import miniGames from "../../levels/games";
-import { RootState } from "../../state/store";
+import { RootState } from "../../redux/store";
 import Detective from "./Detective";
 import Introduction from "./Introduction";
 import Memory from "./Memory";

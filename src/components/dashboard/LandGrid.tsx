@@ -3,7 +3,7 @@
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import levels from "../../levels/levels";
-import { RootState } from "../../state/store";
+import { RootState } from "../../redux/store";
 import AttractionGrid from "./AttractionGrid";
 
 const getLandIndex = (state: RootState) => state.game.land;

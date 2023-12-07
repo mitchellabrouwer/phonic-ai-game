@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import levels from "../../levels/levels";
 import tiles from "../../lib/tiles";
 
-import { RootState } from "../../state/store";
+import { RootState } from "../../redux/store";
 import { Tile } from "../../types/types";
 
 interface TileProps {
