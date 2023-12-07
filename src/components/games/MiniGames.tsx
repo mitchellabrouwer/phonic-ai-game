@@ -17,7 +17,7 @@ function MiniGames({ letter }: MiniGamesProps) {
 
   switch (game) {
     case "introduction":
-      return <Introduction />;
+      return <Introduction letter={letter} />;
     case "memory":
       return <Memory />;
     case "detective":

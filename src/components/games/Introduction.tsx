@@ -2,41 +2,30 @@
 import { motion, useAnimation } from "framer-motion";
 import { Howl } from "howler";
 import Image from "next/image";
+import { flip, resize, wiggle } from "../../lib/framer";
+import { useAppDispatch, useAppSelector } from "../../lib/redux";
+import { toggleVisibility } from "../../redux/instructions/instructionsSlice";
+import { getShowInstructions } from "../../redux/selectors";
+import Instructions from "./Instructions";
 
-interface IntroductionProps {}
+interface IntroductionProps {
+  letter: string;
+}
 
-function Introduction({}: IntroductionProps) {
+function Introduction({ letter }: IntroductionProps) {
   const controls = useAnimation();
 
-  // Define animations
-  const wiggle = {
-    x: [0, -20, 20, -20, 20, 0],
-    y: [0, 20, -20, 20, -20, 0],
-    rotate: [0, 10, -10, 10, -10, 0],
-    transition: { duration: 2, ease: "easeInOut" },
-  };
-
-  const flip = {
-    rotateY: [0, 180, 0],
-    transition: { duration: 2, ease: "easeInOut" },
-  };
-
-  const resize = {
-    scale: [1, 1.2, 1, 1.2, 1],
-    transition: { duration: 2, ease: "easeInOut" },
-  };
+  const showInstructions = useAppSelector(getShowInstructions);
+  const dispatch = useAppDispatch();
 
   const sound = new Howl({
     src: ["/assets/audio/piano.mp3"],
     html5: true,
     onplay: () => {
-      console.log("play");
-
-      // Synchronize animation with the sound duration
-      const sequenceDuration = sound.duration() * 1000; // Duration in milliseconds
+      const sequenceDurationMs = sound.duration() * 1000;
       const startTime = Date.now();
       const sequence = async () => {
-        while (Date.now() - startTime < sequenceDuration) {
+        while (Date.now() - startTime < sequenceDurationMs) {
           await controls.start(wiggle);
           await controls.start(flip);
           await controls.start(resize);
@@ -46,21 +35,21 @@ function Introduction({}: IntroductionProps) {
     },
   });
 
-  // useEffect(() => {
-  //   sound.play();
-
-  //   return () => {
-  //     sound.stop();
-  //     controls.stop();
-  //   };
-  // }, [sound, controls]);
+  const handleStartGame = () => {
+    dispatch(toggleVisibility());
+    sound.play();
+  };
 
   return (
     <div className="h-screen w-screen">
-      {/* need an instruction screen then click button */}
-      <button type="button" onClick={() => sound.play()}>
-        Play
-      </button>
+      {showInstructions && (
+        <Instructions
+          gameTitle="Meet sammy"
+          onPlay={handleStartGame}
+          letter={letter}
+          instructions="Here are the instructions for the game. Click start when you're ready."
+        />
+      )}
 
       <motion.div
         animate={controls}

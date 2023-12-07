@@ -2,25 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
 import { FaLock } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import levels from "../../levels/levels";
 import tiles from "../../lib/tiles";
 
-import { RootState } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../lib/redux";
+import { toggleVisibility } from "../../redux/instructions/instructionsSlice";
+import {
+  getCompletedLetters,
+  getLandIndex,
+  getLetterIndex,
+} from "../../redux/selectors";
 import { Tile } from "../../types/types";
 
 interface TileProps {
   square: Tile;
 }
 
-const getLetterIndex = (state: RootState) => state.game.letter;
-const getLandIndex = (state: RootState) => state.game.land;
-const getCompletedLetters = (state: RootState) => state.game.completedLetters;
-
 function Square({ square }: TileProps) {
-  const landIndex = useSelector(getLandIndex);
-  const letterIndex = useSelector(getLetterIndex);
-  const completedLetters = useSelector(getCompletedLetters);
+  const landIndex = useAppSelector(getLandIndex);
+  const letterIndex = useAppSelector(getLetterIndex);
+  const completedLetters = useAppSelector(getCompletedLetters);
+  const dispatch = useAppDispatch();
 
   const currentLetter = levels[landIndex][letterIndex].letter;
 
@@ -69,6 +71,7 @@ function Square({ square }: TileProps) {
         href={`letters/${square.letter}`}
         className="shadow-pulse relative flex min-h-[10vw] min-w-[10vw] animate-pulse items-center justify-center rounded border-8 border-transparent transition-all duration-300 hover:shadow-lg md:min-h-[6.5vw] md:min-w-[6.5vw] lg:min-h-[5vw] lg:min-w-[5vw]"
         style={commonStyles}
+        onClick={() => dispatch(toggleVisibility())}
       >
         <span className="relative z-10 transform text-8xl text-white transition-transform hover:scale-110">
           {square.letter}
