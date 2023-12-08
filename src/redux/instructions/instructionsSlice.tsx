@@ -10,11 +10,20 @@ const instructionsSlice = createSlice({
   name: "instructions",
   initialState,
   reducers: {
-    toggleVisibility: (state) => {
+    displayInstructions: (state) => {
+      state.isVisible = true;
+    },
+
+    hideInstructions: (state) => {
+      state.isVisible = false;
+    },
+
+    toggleInstructions: (state) => {
       state.isVisible = !state.isVisible;
     },
   },
 });
 
-export const { toggleVisibility } = instructionsSlice.actions;
+export const { displayInstructions, hideInstructions, toggleInstructions } =
+  instructionsSlice.actions;
 export const instructionsReducer = instructionsSlice.reducer;

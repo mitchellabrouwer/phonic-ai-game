@@ -1,11 +1,27 @@
+import { Howler } from "howler";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
-import { IoSpeedometerOutline } from "react-icons/io5";
+import { IoIosHelpCircleOutline } from "react-icons/io";
+import {
+  IoSpeedometerOutline,
+  IoVolumeHighOutline,
+  IoVolumeMuteOutline,
+} from "react-icons/io5";
 import { PiBackpack } from "react-icons/pi";
+import { useAppDispatch } from "../../lib/redux";
+import { displayInstructions } from "../../redux/instructions/instructionsSlice";
 
 function Navbar() {
   const iconSize = "70";
+  const dispatch = useAppDispatch();
+  const [isMuted, setIsMuted] = useState(false);
+
+  const toggleMute = () => {
+    Howler.mute(!isMuted);
+    setIsMuted(!isMuted);
+  };
 
   return (
     <div className="bg-blue-600 shadow-lg">
@@ -26,7 +42,15 @@ function Navbar() {
           <IoSpeedometerOutline size={iconSize} />
         </button>
 
-        <div className="h-28 w-28">
+        <button
+          type="button"
+          aria-label="Inventory"
+          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+        >
+          <PiBackpack size={iconSize} />
+        </button>
+
+        <div className="hidden h-28 w-28 md:block">
           <Image
             src="/assets/artwork/alphabet_wonderland_3.png"
             width={250}
@@ -39,8 +63,22 @@ function Navbar() {
           type="button"
           aria-label="Inventory"
           className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+          onClick={() => dispatch(displayInstructions())}
         >
-          <PiBackpack size={iconSize} />
+          <IoIosHelpCircleOutline size={iconSize} />
+        </button>
+
+        <button
+          type="button"
+          aria-label="Inventory"
+          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+          onClick={toggleMute}
+        >
+          {isMuted ? (
+            <IoVolumeHighOutline size={iconSize} />
+          ) : (
+            <IoVolumeMuteOutline size={iconSize} />
+          )}
         </button>
 
         <button
