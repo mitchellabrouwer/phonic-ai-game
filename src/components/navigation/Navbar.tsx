@@ -23,6 +23,8 @@ function Navbar() {
     setIsMuted(!isMuted);
   };
 
+  console.log(isMuted);
+
   return (
     <div className="bg-blue-600 shadow-lg">
       {" "}
@@ -75,9 +77,9 @@ function Navbar() {
           onClick={toggleMute}
         >
           {isMuted ? (
-            <IoVolumeHighOutline size={iconSize} />
-          ) : (
             <IoVolumeMuteOutline size={iconSize} />
+          ) : (
+            <IoVolumeHighOutline size={iconSize} />
           )}
         </button>
 
