@@ -14,7 +14,6 @@ import { useAppDispatch } from "../../lib/redux";
 import { displayInstructions } from "../../redux/instructions/instructionsSlice";
 
 function Navbar() {
-  const iconSize = "70";
   const dispatch = useAppDispatch();
   const [isMuted, setIsMuted] = useState(false);
 
@@ -22,8 +21,6 @@ function Navbar() {
     Howler.mute(!isMuted);
     setIsMuted(!isMuted);
   };
-
-  console.log(isMuted);
 
   return (
     <div className="w-full bg-blue-600 shadow-lg">
