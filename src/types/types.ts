@@ -1,4 +1,4 @@
-import tiles from "../lib/imagePaths/tiles";
+import tiles from "../lib/paths/mapPieces";
 
 export type Orientation = "landscape" | "portrait";
 

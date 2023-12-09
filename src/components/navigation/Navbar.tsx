@@ -26,30 +26,29 @@ function Navbar() {
   console.log(isMuted);
 
   return (
-    <div className="bg-blue-600 shadow-lg">
-      {" "}
+    <div className="w-full bg-blue-600 shadow-lg">
       <div className="flex flex-row items-center justify-between p-2">
         <Link
           href="/"
-          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500 md:ml-10"
+          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
         >
-          <AiOutlineHome size={iconSize} />
+          <AiOutlineHome />
         </Link>
 
         <button
           type="button"
           aria-label="Progress"
-          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
         >
-          <IoSpeedometerOutline size={iconSize} />
+          <IoSpeedometerOutline />
         </button>
 
         <button
           type="button"
           aria-label="Inventory"
-          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
         >
-          <PiBackpack size={iconSize} />
+          <PiBackpack />
         </button>
 
         <div className="hidden h-28 w-28 md:block">
@@ -64,23 +63,19 @@ function Navbar() {
         <button
           type="button"
           aria-label="Inventory"
-          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
           onClick={() => dispatch(displayInstructions())}
         >
-          <IoIosHelpCircleOutline size={iconSize} />
+          <IoIosHelpCircleOutline />
         </button>
 
         <button
           type="button"
           aria-label="Inventory"
-          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500"
+          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
           onClick={toggleMute}
         >
-          {isMuted ? (
-            <IoVolumeMuteOutline size={iconSize} />
-          ) : (
-            <IoVolumeHighOutline size={iconSize} />
-          )}
+          {isMuted ? <IoVolumeMuteOutline /> : <IoVolumeHighOutline />}
         </button>
 
         <button
@@ -88,7 +83,7 @@ function Navbar() {
           aria-label="Settings"
           className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500 md:mr-10"
         >
-          <AiOutlineSetting size={iconSize} />
+          <AiOutlineSetting />
         </button>
       </div>
     </div>

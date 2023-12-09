@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CSSProperties } from "react";
 import { FaLock } from "react-icons/fa";
 import levels from "../../levels/levels";
-import tiles from "../../lib/imagePaths/tiles";
+import tiles from "../../lib/paths/mapPieces";
 
 import { useAppSelector } from "../../lib/redux";
 import {
