@@ -1,7 +1,7 @@
 const backgrounds = {
-  city: "/assets/background/wide/City.webp",
-  ocean: "/assets/background/wide/Ocean.webp",
-  sky: "/assets/background/wide/Sky.webp",
+  city: "/assets/backgrounds/City.webp",
+  ocean: "/assets/backgrounds/Ocean.webp",
+  sky: "/assets/backgrounds/Sky.webp",
 };
 
 export default backgrounds;
