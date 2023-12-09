@@ -1,5 +1,5 @@
 import { Howler } from "howler";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";

@@ -1,4 +1,4 @@
-import { AnimationDefinition, AnimationProps } from "framer-motion";
+import { AnimationDefinition, AnimationProps, Variants } from "framer-motion";
 
 export const wiggle: AnimationDefinition = {
   x: [0, -20, 20, -20, 20, 0],
@@ -17,11 +17,18 @@ export const resize: AnimationDefinition = {
   transition: { duration: 2, ease: "easeInOut" },
 };
 
-export const bounce: AnimationProps["transition"] = {
+export const bounce: Variants = {
   hidden: { y: -50 },
   visible: {
     y: 0,
-    transition: { type: "spring", stiffness: 260, damping: 20 },
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20,
+      duration: 2,
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
   },
 };
 

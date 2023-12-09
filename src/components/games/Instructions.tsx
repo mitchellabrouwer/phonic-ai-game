@@ -2,8 +2,8 @@
 
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
-import { resize, wiggle } from "../../lib/framer";
+import React, { useEffect } from "react";
+import { bounce } from "../../lib/framer";
 import characters from "../../lib/paths/characters";
 import { useAppDispatch, useAppSelector } from "../../lib/redux";
 import { hideInstructions } from "../../redux/instructions/instructionsSlice";
@@ -24,12 +24,10 @@ function Instructions({
 }: InstructionProps) {
   const isVisible = useAppSelector(getShowInstructions);
   const controls = useAnimation();
-  const sound = useRef<Howl | null>(null);
+  // const sound = useRef<Howl | null>(null);
   const dispatch = useAppDispatch();
 
   const onPlay = () => {
-    sound.current?.stop();
-    controls.stop();
     dispatch(hideInstructions());
   };
 
@@ -40,29 +38,9 @@ function Instructions({
   };
 
   useEffect(() => {
-    sound.current = new Howl({
-      src: ["/assets/audio/piano.mp3"],
-      html5: true,
-      onplay: () => {
-        if (sound.current) {
-          const sequenceDurationMs = sound.current.duration() * 1000;
-          const startTime = Date.now();
-          const sequence = async () => {
-            while (Date.now() - startTime < sequenceDurationMs) {
-              await controls.start(wiggle);
-              await controls.start(resize);
-            }
-          };
-          sequence();
-        }
-      },
-      onstop: () => {
-        controls.stop();
-      },
-    });
-
+    controls.start("visible");
     return () => {
-      sound.current?.stop();
+      controls.stop();
     };
   }, [controls]);
 
@@ -78,21 +56,17 @@ function Instructions({
           {introduction}
         </p>
         <div className="flex w-full justify-center">
-          <div className="w-36 sm:w-48 md:w-64 lg:w-72 xl:w-96">
-            <motion.div
-              animate={controls}
-              className="flex h-full items-center justify-center"
-            >
+          <motion.div initial="hidden" animate={controls} variants={bounce}>
+            <div className="w-36 sm:w-48 md:w-64 lg:w-72 xl:w-96">
               <Image
-                // className="h-auto w-36"
-                layout="responsive"
+                className="h-auto w-full"
                 src={characters[letter]}
                 alt={`Letter ${letter}`}
                 width={100}
                 height={100}
               />
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
         <h2 className="mb-3 text-2xl font-bold text-gray-800">How to play?</h2>
         <h3 className="mx-auto my-4 max-w-3xl text-lg text-gray-600">

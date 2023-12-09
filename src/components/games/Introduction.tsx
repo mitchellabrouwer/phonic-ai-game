@@ -3,8 +3,8 @@ import miniGameData from "../../levels/miniGameData";
 import backgrounds from "../../lib/paths/backgrounds";
 import { useAppDispatch, useAppSelector } from "../../lib/redux";
 import {
-    displayInstructions,
-    hideInstructions,
+  displayInstructions,
+  hideInstructions,
 } from "../../redux/instructions/instructionsSlice";
 import { getShowInstructions } from "../../redux/selectors";
 import Background from "../background/Background";
