@@ -1,11 +1,15 @@
+/* eslint-disable no-await-in-loop */
+
+import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { resize, wiggle } from "../../lib/framer";
 import characters from "../../lib/paths/characters";
-import { useAppSelector } from "../../lib/redux";
+import { useAppDispatch, useAppSelector } from "../../lib/redux";
+import { hideInstructions } from "../../redux/instructions/instructionsSlice";
 import { getShowInstructions } from "../../redux/selectors";
 
 interface InstructionProps {
-  onPlay: () => void;
   title: string;
   introduction: string;
   howToPlay: string;
@@ -13,18 +17,54 @@ interface InstructionProps {
 }
 
 function Instructions({
-  onPlay,
   title,
   introduction,
   howToPlay,
   letter,
 }: InstructionProps) {
   const isVisible = useAppSelector(getShowInstructions);
+  const controls = useAnimation();
+  const sound = useRef<Howl | null>(null);
+  const dispatch = useAppDispatch();
+
+  const onPlay = () => {
+    sound.current?.stop();
+    controls.stop();
+    dispatch(hideInstructions());
+  };
+
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       onPlay();
     }
   };
+
+  useEffect(() => {
+    sound.current = new Howl({
+      src: ["/assets/audio/piano.mp3"],
+      html5: true,
+      onplay: () => {
+        if (sound.current) {
+          const sequenceDurationMs = sound.current.duration() * 1000;
+          const startTime = Date.now();
+          const sequence = async () => {
+            while (Date.now() - startTime < sequenceDurationMs) {
+              await controls.start(wiggle);
+              await controls.start(resize);
+            }
+          };
+          sequence();
+        }
+      },
+      onstop: () => {
+        controls.stop();
+      },
+    });
+
+    return () => {
+      sound.current?.stop();
+    };
+  }, [controls]);
 
   if (!isVisible) {
     return null;
@@ -39,14 +79,19 @@ function Instructions({
         </p>
         <div className="flex w-full justify-center">
           <div className="w-36 sm:w-48 md:w-64 lg:w-72 xl:w-96">
-            <Image
-              // className="h-auto w-36"
-              layout="responsive"
-              src={characters[letter]}
-              alt={`Letter ${letter}`}
-              width={100}
-              height={100}
-            />
+            <motion.div
+              animate={controls}
+              className="flex h-full items-center justify-center"
+            >
+              <Image
+                // className="h-auto w-36"
+                layout="responsive"
+                src={characters[letter]}
+                alt={`Letter ${letter}`}
+                width={100}
+                height={100}
+              />
+            </motion.div>
           </div>
         </div>
         <h2 className="mb-3 text-2xl font-bold text-gray-800">How to play?</h2>
