@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import miniGames from "../../levels/games";
 import { RootState } from "../../redux/store";
-import Detective from "./Detective";
-import Introduction from "./Introduction";
-import Memory from "./Memory";
+import Detective from "./detective/Detective";
+import Introduction from "./introduction/Introduction";
+import Memory from "./memory/Memory";
 
 interface MiniGamesProps {
   letter: string;
