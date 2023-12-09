@@ -9,3 +9,5 @@ export const getCompletedLetters = (state: RootState) =>
   state.game.completedLetters;
 
 export const getLetterIndex = (state: RootState) => state.game.letter;
+
+export const getDifficulty = (state: RootState) => state.game.difficulty;
