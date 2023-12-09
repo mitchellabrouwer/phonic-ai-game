@@ -4,12 +4,14 @@ import { Howl } from "howler";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { flip, resize, wiggle } from "../../lib/framer";
+import backgrounds from "../../lib/imagePaths/backgrounds";
 import { useAppDispatch, useAppSelector } from "../../lib/redux";
 import {
   displayInstructions,
   hideInstructions,
 } from "../../redux/instructions/instructionsSlice";
 import { getShowInstructions } from "../../redux/selectors";
+import Background from "../background/Background";
 import Instructions from "./Instructions";
 
 interface IntroductionProps {
@@ -64,28 +66,30 @@ function Introduction({ letter }: IntroductionProps) {
   };
 
   return (
-    <div className="h-screen w-screen">
-      {showInstructions && (
-        <Instructions
-          gameTitle="Meet sammy"
-          onPlay={handleStartGame}
-          letter={letter}
-          instructions="Here are the instructions for the game. Click start when you're ready."
-        />
-      )}
+    <Background src={backgrounds.sky}>
+      <div className="h-screen w-screen">
+        {showInstructions && (
+          <Instructions
+            gameTitle="Meet sammy"
+            onPlay={handleStartGame}
+            letter={letter}
+            instructions="Here are the instructions for the game. Click start when you're ready."
+          />
+        )}
 
-      <motion.div
-        animate={controls}
-        className="flex h-full items-center justify-center"
-      >
-        <Image
-          src="/assets/characters/sammy/sammy.png"
-          width={250}
-          height={250}
-          alt="Alphabet Wonderland logo"
-        />
-      </motion.div>
-    </div>
+        <motion.div
+          animate={controls}
+          className="flex h-full items-center justify-center"
+        >
+          <Image
+            src="/assets/characters/sammy/sammy.png"
+            width={250}
+            height={250}
+            alt="Alphabet Wonderland logo"
+          />
+        </motion.div>
+      </div>
+    </Background>
   );
 }
 
