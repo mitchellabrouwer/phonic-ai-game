@@ -2,10 +2,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import miniGames from "../../levels/games";
 import levels from "../../levels/levels";
+import { DifficultyLevel } from "../../types/types";
 
 interface GameState {
   lives: number;
-  difficulty: "easy" | "medium" | "hard";
+  difficulty: DifficultyLevel;
 
   land: number;
   letter: number;

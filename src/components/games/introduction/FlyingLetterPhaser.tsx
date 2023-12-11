@@ -1,29 +1,37 @@
 import Phaser from "phaser";
 import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../../lib/redux";
-import { getDifficulty } from "../../../redux/selectors";
-import gameDataService from "./GameDataService";
+import {
+  getDifficulty,
+  getLandIndex,
+  getLives,
+} from "../../../redux/selectors";
+import { GameVariables } from "../../../types/types";
 import MainScene from "./MainScene";
 import Preloader from "./Preloader";
 
 function FlyingLetters({ letter }: { letter: string }) {
-  const [isPhaserReady, setIsPhaserReady] = useState(false);
+  const [, setIsPhaserReady] = useState(false);
+  const [gameVariables, setGameVariables] = useState<GameVariables | null>(
+    null,
+  );
+
+  console.log(gameVariables);
 
   const containerRef = useRef<HTMLDivElement>(null); // Ref for the container div
   const gameRef = useRef<Phaser.Game | null>(null);
 
-  const [letters, setLetters] = useState<string[]>(["a", "s", "s", "a", "b"]); // Initial letters
+  const lives = useAppSelector(getLives);
   const difficulty = useAppSelector(getDifficulty);
+  const land = useAppSelector(getLandIndex);
 
   const onPhaserReady = () => {
-    setIsPhaserReady(true); // Update the state when Phaser is ready
+    setIsPhaserReady(true);
   };
-  // console.log(difficulty);
 
-  // useEffect(() => {
-  //   // setLetters([letter, ...additionalLetters]);
-  //   setLetters(["a", "s", "s", "a", "b"]);
-  // }, [difficulty, letter]);
+  const onPhaserComplete = (variables: GameVariables) => {
+    setGameVariables(variables);
+  };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -37,7 +45,15 @@ function FlyingLetters({ letter }: { letter: string }) {
       height: containerHeight,
       backgroundColor: "#f5f5f5",
       parent: "flying-letters",
-      scene: [Preloader, new MainScene(onPhaserReady)],
+      scene: [
+        Preloader,
+        new MainScene(onPhaserReady, onPhaserComplete, {
+          lives,
+          difficulty,
+          land,
+          letter,
+        }),
+      ],
     };
 
     gameRef.current = new Phaser.Game(config);
@@ -60,10 +76,6 @@ function FlyingLetters({ letter }: { letter: string }) {
       }
     };
   }, []);
-
-  useEffect(() => {
-    gameDataService.notify(letters);
-  }, [isPhaserReady, letters]);
 
   return (
     <div ref={containerRef} className="h-full w-full" id="flying-letters" />

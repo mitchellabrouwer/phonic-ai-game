@@ -2,7 +2,7 @@
 
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { bounce } from "../../lib/framer";
 import characters from "../../lib/paths/characters";
 import { useAppDispatch, useAppSelector } from "../../lib/redux";
@@ -31,11 +31,19 @@ function Instructions({
     dispatch(hideInstructions());
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
+  const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
       onPlay();
     }
   };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
   useEffect(() => {
     controls.start("visible");
@@ -75,7 +83,6 @@ function Instructions({
         <button
           type="button"
           onClick={onPlay}
-          onKeyDown={handleKeyPress}
           className="transform rounded-full bg-gradient-to-r from-pink-500 to-yellow-500 px-6 py-3 text-xl font-bold text-white shadow-lg transition duration-150 ease-in-out hover:scale-105 hover:from-pink-600 hover:to-yellow-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           tabIndex={0}
         >
