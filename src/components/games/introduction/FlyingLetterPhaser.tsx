@@ -45,6 +45,18 @@ function FlyingLetters({ letter }: { letter: string }) {
       height: containerHeight,
       backgroundColor: "#f5f5f5",
       parent: "flying-letters",
+      physics: {
+        default: "arcade",
+        arcade: {
+          debug: true,
+          debugShowBody: true,
+          debugShowStaticBody: true,
+          debugShowVelocity: true,
+          debugVelocityColor: 0xffff00,
+          debugBodyColor: 0x0000ff,
+          debugStaticBodyColor: 0xffffff,
+        },
+      },
       scene: [
         Preloader,
         new MainScene(onPhaserReady, onPhaserComplete, {
