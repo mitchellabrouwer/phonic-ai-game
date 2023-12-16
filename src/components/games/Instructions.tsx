@@ -59,13 +59,16 @@ function Instructions({
   return (
     <div className="flex h-full items-start justify-center bg-white bg-opacity-75 p-4">
       <div className="rounded-lg bg-gray-100 p-5 text-center shadow-lg">
-        <h2 className="mb-3 text-2xl font-bold text-gray-800">{title}</h2>
-        <p className="mx-auto my-4 max-w-3xl text-center text-lg text-gray-700">
+        <h2 className="mb-3 text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl">
+          {title}
+        </h2>
+        <p className="mx-auto my-1 max-w-3xl text-center text-sm text-gray-700 sm:text-base md:text-lg">
           {introduction}
         </p>
+
         <div className="flex w-full justify-center">
           <motion.div initial="hidden" animate={controls} variants={bounce}>
-            <div className="w-36 sm:w-48 md:w-64 lg:w-72 xl:w-96">
+            <div className="w-20 sm:w-48 md:w-64 lg:w-72 xl:w-96">
               <Image
                 className="h-auto w-full"
                 src={characters[letter]}
@@ -76,10 +79,13 @@ function Instructions({
             </div>
           </motion.div>
         </div>
-        <h2 className="mb-3 text-2xl font-bold text-gray-800">How to play?</h2>
-        <h3 className="mx-auto my-4 max-w-3xl text-lg text-gray-600">
+        <h2 className="mb-3 text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl">
+          How to play?
+        </h2>
+        <h3 className="mx-auto my-1 max-w-3xl text-sm text-gray-600 sm:text-base md:text-lg">
           {howToPlay}
         </h3>
+
         <button
           type="button"
           onClick={onPlay}

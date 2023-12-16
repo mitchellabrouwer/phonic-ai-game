@@ -18,7 +18,7 @@ export const resize: AnimationDefinition = {
 };
 
 export const bounce: Variants = {
-  hidden: { y: -50 },
+  hidden: { y: -10 },
   visible: {
     y: 0,
     transition: {

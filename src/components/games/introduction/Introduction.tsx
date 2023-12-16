@@ -1,14 +1,12 @@
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import miniGameData from "../../../levels/miniGameData";
-import backgrounds from "../../../lib/paths/backgrounds";
 import { useAppDispatch, useAppSelector } from "../../../lib/redux";
 import {
   displayInstructions,
   hideInstructions,
 } from "../../../redux/instructions/instructionsSlice";
 import { getShowInstructions } from "../../../redux/selectors";
-import Background from "../../background/Background";
 import Instructions from "../Instructions";
 
 const DynamicFlyingLetters = dynamic(() => import("./FlyingLetterPhaser"), {
@@ -44,11 +42,11 @@ function Introduction({ letter }: IntroductionProps) {
   }
 
   return (
-    <Background src={backgrounds.sky}>
-      <div className="h-screen w-screen">
-        <DynamicFlyingLetters letter={letter} />;
-      </div>
-    </Background>
+    // <Background src={backgrounds.sky}>
+    <div className="h-screen w-screen">
+      <DynamicFlyingLetters letter={letter} />
+    </div>
+    // </Background>
   );
 }
 

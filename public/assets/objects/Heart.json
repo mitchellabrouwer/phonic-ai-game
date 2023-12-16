@@ -1,16 +1,44 @@
-[
-  {
-    "name": "heartFull",
-    "x": 0,
-    "y": 0,
-    "width": 120,
-    "height": 120
-  },
-  {
-    "name": "heartEmpty",
-    "x": 0,
-    "y": 120,
-    "width": 120,
-    "height": 120
+{
+  "frames": {
+    "heartFull": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 120,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 120,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 120,
+        "h": 120
+      }
+    },
+    "heartEmpty": {
+      "frame": {
+        "x": 0,
+        "y": 120,
+        "w": 120,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 120,
+        "w": 120,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 120,
+        "h": 120
+      }
+    }
   }
-]
+}
