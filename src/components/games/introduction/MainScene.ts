@@ -2,6 +2,18 @@ import { Scene } from "phaser";
 import levels from "../../../levels/levels";
 import { DifficultyLevel, GameVariables } from "../../../types/types";
 
+const breakpoint = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+};
+
+const scaling = {
+  sm: 0.2,
+  md: 0.5,
+  lg: 0.7,
+};
+
 const difficultyLetterCountMap: Record<DifficultyLevel, number> = {
   easy: 1, // 1 extra letter
   medium: 2, // 2 extra letters
@@ -72,6 +84,10 @@ export default class MainScene extends Scene {
 
   private scoreDisplay: Phaser.GameObjects.Text | null;
 
+  private gameOver: boolean = false;
+
+  private scaleFactor: number;
+
   private onComplete: (gameVariables: GameVariables) => void;
 
   constructor(
@@ -93,6 +109,7 @@ export default class MainScene extends Scene {
     this.hearts = [];
     this.score = 0;
     this.scoreDisplay = null;
+    this.scaleFactor = 1;
   }
 
   public create(): void {
@@ -109,6 +126,9 @@ export default class MainScene extends Scene {
     // .setScale(2.3, 2);
 
     this.scale.on("resize", (gameSize: Phaser.Structs.Size) => {
+      console.log(gameSize.width);
+      console.log(gameSize.height);
+
       this.resizeBackground(gameSize.width, gameSize.height);
     });
 
@@ -120,7 +140,7 @@ export default class MainScene extends Scene {
 
     this.livesText = this.add
       .text(0, 0, `Lives: ${this.lives}`, {
-        font: "20px Inter",
+        font: "30px Inter",
         color: "#000",
       })
       .setVisible(false);
@@ -133,9 +153,7 @@ export default class MainScene extends Scene {
       padding: { left: 10, right: 10, top: 10, bottom: 10 },
     });
 
-    this.scoreDisplay.setX(
-      this.cameras.main.width - this.scoreDisplay.width - 20,
-    );
+    this.scoreDisplay.setX(this.cameras.main.width - 20);
 
     this.anims.create({
       key: "redSlashAnimation",
@@ -201,6 +219,10 @@ export default class MainScene extends Scene {
             );
             greenSlash.play("greenSlashAnimation").setScale(0.5);
             this.sound.play("correct");
+            this.score += 1;
+            if (this.scoreDisplay?.text) {
+              this.scoreDisplay.text = String(this.score);
+            }
             greenSlash.on("animationcomplete", () => {
               greenSlash.destroy();
               this.balloons[index].destroy();
@@ -220,7 +242,7 @@ export default class MainScene extends Scene {
               redSlash.destroy();
             });
 
-            this.loseHeart(this.lives);
+            this.loseLife();
           }
         })
         .on("pointerover", () => {
@@ -239,7 +261,9 @@ export default class MainScene extends Scene {
   }
 
   public update(): void {
-    this.isWin();
+    if (!this.gameOver) {
+      this.isWin();
+    }
 
     this.letters.forEach((letter, index) => {
       const xOffset = -40;
@@ -251,22 +275,22 @@ export default class MainScene extends Scene {
     });
   }
 
-  private releaseBalloons(width: number, height: number) {
+  private releaseBalloons() {
     this.balloons.forEach((balloon, index) => {
       if (!this.popped[index]) {
-        balloon.setPosition(width, height);
+        balloon.setPosition(this.cameras.main.width, this.cameras.main.height);
       }
     });
   }
 
   private updateHeartsDisplay() {
-    const isSmallScreen = this.cameras.main.width < 600;
+    const isSmallScreen = this.cameras.main.width < breakpoint.md;
 
     if (isSmallScreen) {
       this.hearts.forEach((heart, index) => {
         heart.setVisible(index === 0);
         if (index === 0 && this.livesText) {
-          this.livesText.setX(heart.displayWidth + 10);
+          this.livesText.setX(heart.x - 5);
           this.livesText.setY(heart.y);
           this.livesText.setText(String(this.lives));
           this.livesText.setVisible(true);
@@ -280,18 +304,6 @@ export default class MainScene extends Scene {
     }
   }
 
-  private resizeGameElements(width: number) {
-    const scaleFactor = width < 600 ? 0.5 : 1;
-
-    this.balloons.forEach((balloon) => {
-      balloon.setScale(scaleFactor);
-    });
-
-    this.letters.forEach((letter) => {
-      letter.setFontSize(scaleFactor * 100);
-    });
-  }
-
   private resizeBackground(width: number, height: number) {
     this.cameras.main.setSize(width, height);
 
@@ -302,25 +314,45 @@ export default class MainScene extends Scene {
     this.updateHeartsDisplay();
 
     if (this.scoreDisplay) {
-      this.scoreDisplay.setX(
-        this.cameras.main.width - this.scoreDisplay.width - 120,
-      );
+      this.scoreDisplay.setX(this.cameras.main.width - 10);
     }
 
-    this.releaseBalloons(width, height);
     this.resizeGameElements(width);
+    this.releaseBalloons();
   }
 
-  private loseHeart(heartIndex: number) {
+  private resizeGameElements(width: number) {
+    if (width < breakpoint.sm) {
+      this.scaleFactor = scaling.sm;
+    } else if (width >= breakpoint.sm && width < breakpoint.md) {
+      this.scaleFactor = scaling.md;
+    } else if (width >= breakpoint.md && width < breakpoint.lg) {
+      this.scaleFactor = scaling.lg;
+    } else {
+      this.scaleFactor = 1; // Default scale for larger screens
+    }
+
+    this.balloons.forEach((balloon) => {
+      balloon.setScale(this.scaleFactor);
+    });
+
+    this.letters.forEach((letter) => {
+      letter.setFontSize(this.scaleFactor * 100);
+    });
+  }
+
+  private loseLife() {
+    this.lives -= 1;
+    const heartIndex = this.lives;
+
     if (heartIndex >= 0 && heartIndex < this.hearts.length) {
       this.hearts[heartIndex].setFrame("heartEmpty");
     }
-    this.lives -= 1;
     if (this.livesText) {
       this.livesText.setText(String(this.lives));
     }
 
-    if (heartIndex === 0) this.loseGame();
+    if (this.lives === 0) this.loseGame();
   }
 
   private isWin() {
@@ -355,6 +387,7 @@ export default class MainScene extends Scene {
       },
     );
     console.log("win game");
+    this.gameOver = true;
   }
 
   private loseGame() {
