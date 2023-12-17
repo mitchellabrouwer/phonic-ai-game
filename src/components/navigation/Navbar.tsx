@@ -23,8 +23,8 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full bg-blue-600 shadow-lg">
-      <div className="flex flex-row items-center justify-between p-2">
+    <div className="fixed left-0 top-0 z-50 w-full bg-blue-600 shadow-lg">
+      <div className="flex h-20 flex-row items-center justify-between">
         <Link
           href="/"
           className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
@@ -48,7 +48,7 @@ function Navbar() {
           <PiBackpack />
         </button>
 
-        <div className="hidden h-28 w-28 md:block">
+        <div className="hidden h-16 w-16 md:block">
           <Image
             src="/assets/artwork/alphabet_wonderland_3.png"
             width={250}
@@ -78,7 +78,7 @@ function Navbar() {
         <button
           type="button"
           aria-label="Settings"
-          className="rounded-full p-2 text-4xl transition duration-300 ease-in-out hover:bg-blue-500 md:mr-10"
+          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
         >
           <AiOutlineSetting />
         </button>

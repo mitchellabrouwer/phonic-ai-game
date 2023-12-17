@@ -7,7 +7,9 @@ function Page({ params }: { params: { letter: string } }) {
   return (
     <div>
       <Navbar />
-      <Games letter={params.letter} />
+      <div className="mt-16">
+        <Games letter={params.letter} />
+      </div>
     </div>
   );
 }
