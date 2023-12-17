@@ -56,8 +56,6 @@ function getRepeatedLetters(letters: string[], repeatFactor: number): string[] {
 }
 
 export default class MainScene extends Scene {
-  private readonly padding: number = 20; // Example padding value
-
   private onReady: () => void;
 
   private lives: number;
@@ -306,6 +304,7 @@ export default class MainScene extends Scene {
 
   private resizeBackground(width: number, height: number) {
     this.cameras.main.setSize(width, height);
+    this.cameras.main.setBounds(0, 0, width, height);
 
     if (this.background) {
       this.background.setSize(width, height);
