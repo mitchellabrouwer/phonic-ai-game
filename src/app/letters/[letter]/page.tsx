@@ -1,14 +1,14 @@
 "use client";
 
-import Games from "../../../components/games/MiniGames";
+import MiniGames from "../../../components/games/MiniGames";
 import Navbar from "../../../components/navigation/Navbar";
 
 function Page({ params }: { params: { letter: string } }) {
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <Navbar />
-      <div className="mt-16">
-        <Games letter={params.letter} />
+      <div className="flex-grow">
+        <MiniGames letter={params.letter} />
       </div>
     </div>
   );

@@ -42,11 +42,9 @@ function Introduction({ letter }: IntroductionProps) {
   }
 
   return (
-    // <Background src={backgrounds.sky}>
-    <div className="h-screen w-screen">
+    <div className="h-full w-full">
       <DynamicFlyingLetters letter={letter} />
     </div>
-    // </Background>
   );
 }
 

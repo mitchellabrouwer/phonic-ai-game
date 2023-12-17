@@ -10,9 +10,8 @@ export default function Home() {
       <OrientationProvider>
         <div className="flex h-full flex-col">
           <Navbar />
-          <div className="mt-15">
-            <Dashboard />
-          </div>
+
+          <Dashboard />
         </div>
       </OrientationProvider>
     </main>

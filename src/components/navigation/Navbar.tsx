@@ -23,7 +23,7 @@ function Navbar() {
   };
 
   return (
-    <div className="fixed left-0 top-0 z-50 w-full bg-blue-600 shadow-lg">
+    <div className="w-full bg-blue-600 shadow-lg">
       <div className="flex h-20 flex-row items-center justify-between">
         <Link
           href="/"
