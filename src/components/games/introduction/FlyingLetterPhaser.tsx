@@ -7,8 +7,8 @@ import {
   getLives,
 } from "../../../redux/selectors";
 import { GameVariables } from "../../../types/types";
-import MainScene from "./MainScene";
-import Preloader from "./Preloader";
+import MainScene from "./phaser/MainScene";
+import Preloader from "./phaser/Preloader";
 
 function FlyingLetters({ letter }: { letter: string }) {
   const [, setIsPhaserReady] = useState(false);
@@ -16,7 +16,7 @@ function FlyingLetters({ letter }: { letter: string }) {
     null,
   );
 
-  console.log(gameVariables);
+  // console.log(gameVariables);
 
   const containerRef = useRef<HTMLDivElement>(null); // Ref for the container div
   const gameRef = useRef<Phaser.Game | null>(null);
@@ -48,6 +48,7 @@ function FlyingLetters({ letter }: { letter: string }) {
       physics: {
         default: "arcade",
         arcade: {
+          // gravity: { y: 300 },
           debug: true,
           debugShowBody: true,
           debugShowStaticBody: true,
@@ -59,12 +60,15 @@ function FlyingLetters({ letter }: { letter: string }) {
       },
       scene: [
         Preloader,
-        new MainScene(onPhaserReady, onPhaserComplete, {
-          lives,
-          difficulty,
-          land,
-          letter,
-        }),
+        new MainScene(
+          {
+            lives,
+            difficulty,
+            land,
+            letter,
+          },
+          onPhaserComplete,
+        ),
       ],
     };
 

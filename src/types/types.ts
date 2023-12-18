@@ -12,6 +12,11 @@ export type GameVariables = {
   letter: string;
 };
 
+export type GameStats = {
+  time: number;
+  livesLeft: number;
+};
+
 export type Tile = {
   image: TileName;
   rotate?: number;

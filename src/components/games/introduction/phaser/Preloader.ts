@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import { greenSlashAnimLength, redSlashAnimLength } from "./gameConstants";
 
 export default class Preloader extends Scene {
   constructor() {
@@ -6,9 +7,6 @@ export default class Preloader extends Scene {
   }
 
   preload() {
-    const greenSlashLength = 10;
-    const redSlashLength = 8;
-
     this.load.image("background", "/assets/backgrounds/Calm.png");
     this.load.image("balloon", "/assets/objects/Balloon.png");
 
@@ -37,21 +35,14 @@ export default class Preloader extends Scene {
     // phonic
     this.load.audio("hiss", "/assets/audio/effects/hiss.mp3");
 
-    // Array.from({ length: 10 }).forEach((_, index) => {
-    //   this.load.image(
-    //     `slash${index + 1}`,
-    //     `/assets/sprites/slash/${index + 1}.png`,
-    //   );
-    // });
-
-    Array.from({ length: redSlashLength }).forEach((_, index) => {
+    Array.from({ length: redSlashAnimLength }).forEach((_, index) => {
       this.load.image(
         `redSlash${index + 1}`,
         `/assets/sprites/redSlash/${index + 1}.png`,
       );
     });
 
-    Array.from({ length: greenSlashLength }).forEach((_, index) => {
+    Array.from({ length: greenSlashAnimLength }).forEach((_, index) => {
       this.load.image(
         `greenSlash${index + 1}`,
         `/assets/sprites/greenSlash/${index + 1}.png`,
