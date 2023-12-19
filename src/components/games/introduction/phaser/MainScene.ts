@@ -130,7 +130,6 @@ export default class MainScene extends Phaser.Scene {
       this.sound.play("hiss");
       greenSlash.destroy();
       balloon.destroy();
-      this.scoreManager.incrementScore();
       this.balloonManager.popped[index] = true;
       this.balloonManager.balloons[index].destroy();
       this.letterManager.letters[index].destroy();

@@ -27,15 +27,11 @@ export default class ScoreManager {
     this.scoreDisplay.setOrigin(1, 0);
   }
 
-  updateScore(newScore: number): void {
-    this.score = newScore;
+  incrementScore(): void {
+    this.score += 1;
     if (this.scoreDisplay) {
       this.scoreDisplay.text = String(this.score);
     }
-  }
-
-  incrementScore(): void {
-    this.score += 1;
   }
 
   handleResize(gameSize: Phaser.Structs.Size) {
