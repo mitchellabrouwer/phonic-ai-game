@@ -4,8 +4,9 @@
 <br />
 <div align="center">
   <a href="https://github.com/github_username/phonics-ai-game">
-    <img src="public/screenshots/Screenshot2.png" alt="Logo" width="80" height="80">
-    <img src="public/screenshots/Screenshot1.png" alt="Logo" width="80" height="80">
+    <div align="center" style="width: 100%; text-align: center;">
+      <img src="public/screenshots/Screenshot1.png" alt="Logo" style="max-width: 100%; height: auto;">
+    </div
   </a>
 
 <h3 align="center">Phonics Game for Kids</h3>
@@ -38,6 +39,7 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 Phonics Game for Kids is designed to help young children learn and practice phonics through fun and interactive games. Utilizing the power of Next.js for seamless user experiences and Phaser for engaging game mechanics, this project aims to make learning enjoyable and effective for early learners.
@@ -57,18 +59,22 @@ Phonics Game for Kids is designed to help young children learn and practice phon
 - [Tailwind CSS](https://tailwindcss.com/)
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
 
 <!-- COMPLETION STATUS -->
+
 ## Completion Status
 
 ### Done
+
 - [x] Project setup and interaction with Phaser
 - [x] Demonstration level
 
 ### ToDo
+
 - [ ] Add more levels and activities
 - [ ] Use of AI for managing difficulty
 
@@ -77,3 +83,4 @@ To get a local copy up and running follow these simple steps.
 - npm
   ```sh
   npm install npm@latest -g
+  ```
