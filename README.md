@@ -13,7 +13,6 @@
   <p align="center">
     An interactive phonics learning game for children.
     <br />
-    <a href="https://github.com/github_username/phonics-ai-game">View Demo</a>
     ·
     <a href="https://github.com/github_username/phonics-ai-game/issues">Report Bug</a>
     ·
