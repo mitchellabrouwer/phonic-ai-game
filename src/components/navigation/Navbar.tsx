@@ -23,11 +23,11 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full bg-blue-600 shadow-lg">
-      <div className="flex h-20 flex-row items-center justify-between">
+    <div className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 shadow-lg">
+      <div className="flex h-20 flex-row items-center justify-between px-4">
         <Link
           href="/"
-          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
+          className="rounded-full bg-white/10 p-3 text-5xl text-white transition duration-300 ease-in-out hover:scale-110 hover:bg-white/20 sm:text-4xl md:text-5xl lg:text-6xl"
         >
           <AiOutlineHome />
         </Link>
@@ -35,7 +35,7 @@ function Navbar() {
         <button
           type="button"
           aria-label="Progress"
-          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
+          className="rounded-full bg-white/10 p-3 text-5xl text-white transition duration-300 ease-in-out hover:scale-110 hover:bg-white/20 sm:text-4xl md:text-5xl lg:text-6xl"
         >
           <IoSpeedometerOutline />
         </button>
@@ -43,7 +43,7 @@ function Navbar() {
         <button
           type="button"
           aria-label="Inventory"
-          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
+          className="rounded-full bg-white/10 p-3 text-5xl text-white transition duration-300 ease-in-out hover:scale-110 hover:bg-white/20 sm:text-4xl md:text-5xl lg:text-6xl"
         >
           <PiBackpack />
         </button>
@@ -54,13 +54,14 @@ function Navbar() {
             width={250}
             height={250}
             alt="Alphabet Wonderland logo"
+            className="transform transition-transform hover:scale-110"
           />
         </div>
 
         <button
           type="button"
-          aria-label="Inventory"
-          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
+          aria-label="Help"
+          className="rounded-full bg-white/10 p-3 text-5xl text-white transition duration-300 ease-in-out hover:scale-110 hover:bg-white/20 sm:text-4xl md:text-5xl lg:text-6xl"
           onClick={() => dispatch(displayInstructions())}
         >
           <IoIosHelpCircleOutline />
@@ -68,8 +69,8 @@ function Navbar() {
 
         <button
           type="button"
-          aria-label="Inventory"
-          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
+          aria-label="Sound"
+          className="rounded-full bg-white/10 p-3 text-5xl text-white transition duration-300 ease-in-out hover:scale-110 hover:bg-white/20 sm:text-4xl md:text-5xl lg:text-6xl"
           onClick={toggleMute}
         >
           {isMuted ? <IoVolumeMuteOutline /> : <IoVolumeHighOutline />}
@@ -78,7 +79,7 @@ function Navbar() {
         <button
           type="button"
           aria-label="Settings"
-          className="rounded-full p-2 text-5xl transition duration-300 ease-in-out hover:bg-blue-500 sm:text-4xl md:text-5xl lg:text-6xl"
+          className="rounded-full bg-white/10 p-3 text-5xl text-white transition duration-300 ease-in-out hover:scale-110 hover:bg-white/20 sm:text-4xl md:text-5xl lg:text-6xl"
         >
           <AiOutlineSetting />
         </button>

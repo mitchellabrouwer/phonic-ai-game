@@ -48,14 +48,8 @@ function FlyingLetters({ letter }: { letter: string }) {
       physics: {
         default: "arcade",
         arcade: {
-          // gravity: { y: 300 },
-          debug: true,
-          debugShowBody: true,
-          debugShowStaticBody: true,
-          debugShowVelocity: true,
-          debugVelocityColor: 0xffff00,
-          debugBodyColor: 0x0000ff,
-          debugStaticBodyColor: 0xffffff,
+          gravity: { y: 0 },
+          debug: false,
         },
       },
       scene: [
